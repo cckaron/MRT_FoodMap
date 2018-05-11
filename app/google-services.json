@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "424101467307",
+    "firebase_url": "https://mrt-foodmap.firebaseio.com",
+    "project_id": "mrt-foodmap",
+    "storage_bucket": "mrt-foodmap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424101467307:android:a0c65c1fb831e11f",
+        "android_client_info": {
+          "package_name": "tw.com.team13.firebaselogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424101467307-39bm2ctcmrhbtabh618d7ujkg4mfj7v2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.com.team13.firebaselogin",
+            "certificate_hash": "a57347c366bbe8215857fe2a12ff4bec6a026d0b"
+          }
+        },
+        {
+          "client_id": "424101467307-4le9vv9febqgjobetnhmh7l6senj32s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPkb3oxCAS_dxWHkLVABKq0c3EaJ8hjdA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424101467307-4le9vv9febqgjobetnhmh7l6senj32s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
