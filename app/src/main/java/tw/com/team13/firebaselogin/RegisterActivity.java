@@ -89,6 +89,20 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
+
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    user.sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(RegisterActivity.this, R.string.email_hasSent, Toast.LENGTH_SHORT).show();
+                                                    } else{
+                                                        Toast.makeText(RegisterActivity.this, "發生錯誤，請重新註冊"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+
                                     Intent intent = new Intent();
                                     intent.setClass(RegisterActivity.this, MainActivity.class);
                                     startActivity(intent);
