@@ -5,9 +5,11 @@
     tools:context="tw.com.team13.firebaselogin.Fragment_Profile">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <Button
+        android:id="@+id/addStore_button"
+        android:layout_width="141dp"
+        android:layout_height="92dp"
+        android:text="@string/addStore" />
 
 </FrameLayout>
