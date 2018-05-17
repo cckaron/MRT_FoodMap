@@ -36,7 +36,7 @@ public class Fragment_Member extends Fragment {
         TextView textView = getView().findViewById(R.id.textView);
         if (user != null && user.isEmailVerified()){
             name = user.getEmail();
-            textView.setText(name);
+            textView.setText(name+" (已開通)");
         }else {
             textView.setText("您的帳號尚未認證!");
         }
