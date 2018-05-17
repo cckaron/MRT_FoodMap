@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Fragment_Member extends Fragment {
 
-    private Button addStore;
+    private Button addStoreBtn;
     private Button logoutBtn;
     private String name;
 
@@ -48,12 +48,22 @@ public class Fragment_Member extends Fragment {
 
     private void initView(){
         logoutBtn = getView().findViewById(R.id.button8);
+        addStoreBtn = getView().findViewById(R.id.button4);
         logoutBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        addStoreBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), addStoreActivity.class);
                 startActivity(intent);
             }
         });

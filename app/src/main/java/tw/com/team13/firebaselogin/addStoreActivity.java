@@ -42,6 +42,7 @@ public class addStoreActivity extends AppCompatActivity{
         storeDescriptionEdit = findViewById(R.id.storeDescription_edit);
 
         add_button = findViewById(R.id.add_button);
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,4 +83,5 @@ public class addStoreActivity extends AppCompatActivity{
             }
         });
     }
+
 }
