@@ -5,7 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="139dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
+
     <android.support.design.widget.TextInputLayout
+        android:layout_below="@id/logo"
         android:id="@+id/account_layout"
         android:layout_width="200dp"
         android:layout_height="wrap_content">

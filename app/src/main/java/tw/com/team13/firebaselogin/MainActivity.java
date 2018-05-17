@@ -27,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.content,new Fragment_Home());
                     transaction.commit();
                     return true;
-                case R.id.navigation_dashboard:
-                    transaction.replace(R.id.content,new Fragment_Collect());
+                case R.id.navigation_feed:
+                    transaction.replace(R.id.content,new Fragment_Feed());
                     transaction.commit();
                     return true;
-                case R.id.navigation_notifications:
-                    transaction.replace(R.id.content,new Fragment_Profile());
+                case R.id.navigation_member:
+                    transaction.replace(R.id.content,new Fragment_Member());
                     transaction.commit();
                     return true;
+
             }
             return false;
         }

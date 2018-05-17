@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">捷運美食App</string>
-    <string name="title_home">首頁</string>
+    <string name="title_home">探索美食</string>
     <string name="title_dashboard">探索</string>
-    <string name="title_notifications">設定</string>
+    <string name="title_member">個人中心</string>
     <string name="home_login">透過E-mail登入</string>
     <string name="home_register">註冊新帳號</string>
-    <string name="account">電子郵件帳號</string>
+    <string name="email_account">電子郵件帳號</string>
     <string name="password">密碼</string>
     <string name="signUp_button">確認</string>
     <string name="name">暱稱</string>
@@ -28,12 +28,9 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="storeName">店名</string>
     <string name="storeAddress">地址</string>
     <string name="storeDescription">簡介</string>
@@ -41,4 +38,18 @@
     <string name="addStore">新增店家</string>
     <string name="addStore_Success">新增店家成功</string>
     <string name="addStore_Fail">新增失敗!請聯絡管理員</string>
+    <string name="title_feed">美食圈</string>
+    <string name="title_collection">收藏</string>
+    <string name="title_trip">TRIPS</string>
+    <string name="setting">設定</string>
+    <string name="notifications">推播</string>
+    <string name="aboutUs">關於此APP</string>
+    <string name="account">電子信箱</string>
+    <string name="register">註冊</string>
+    <string name="username">帳戶名稱</string>
+    <string name="icon_member">會員頭像</string>
+    <string name="icon_setting">設定圖標</string>
+    <string name="icon_notification">推播圖標</string>
+    <string name="icon_description">個人資訊圖標</string>
+    <string name="icon_about">關於我們圖標</string>
 </resources>
