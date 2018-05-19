@@ -27,6 +27,10 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".addStoreActivity" />
+        <activity android:name=".MainActivity2">
+        </activity>
+        <activity android:name=".RestaurantDetailActivity"/>
+        <activity android:name=".SearchActivity" />
     </application>
 
 </manifest>

@@ -52,4 +52,123 @@
     <string name="icon_notification">推播圖標</string>
     <string name="icon_description">個人資訊圖標</string>
     <string name="icon_about">關於我們圖標</string>
-</resources>
+
+    <!-- 首頁用到的 -->
+    <string name="value_any_city">依捷運站查詢</string>
+    <string name="value_any_category">依食物種類查詢</string>
+    <string name="sorted_by_price">按照價格搜尋</string>
+    <string name="sorted_by_popularity">依人氣搜尋</string>
+    <string name="sorted_by_rating">依評分搜尋</string>
+    <string name="all_restaurants">所有餐廳</string>
+    <string name="header_filters">篩選器</string>
+    <string name="value_any_price">任何價格</string>
+    <string name="price_1">$</string>
+    <string name="price_2">$$</string>
+    <string name="price_3">$$</string>
+    <string name="sort_by_rating">依評分排序</string>
+    <string name="sort_by_popularity">依人氣排序</string>
+    <string name="sort_by_price">依價格排序</string>
+    <string name="cancel">取消</string>
+    <string name="apply">套用</string>
+    <string name="message_no_results">Oops, 找不到任何相關結果</string>
+    <string name="divider_bullet">•</string>
+    <string name="fmt_num_ratings" translatable="false">(%d)</string>
+    <string name="add_random_items">隨機加入</string>
+    <string name="message_no_network">無網路連線!</string>
+    <string name="filter_add_review">分享評論</string>
+    <string name="hint_review">您的用餐體驗如何?</string>
+    <string name="submit">送出</string>
+    <string name="message_no_reviews">成為第一個分享留言的人吧!</string>
+    <string name="title_sign_in_error">登入錯誤</string>
+    <string name="option_retry">重試</string>
+    <string name="option_exit">離開</string>
+    <string name="message_unknown">未知錯誤</string>
+    <string name="searching">搜尋</string>
+
+
+    <!-- 捷運線 -->
+    <string-array name="cities">
+        <item>@string/value_any_city</item>
+        <item>Albuquerque</item>
+        <item>Arlington</item>
+        <item>Atlanta</item>
+        <item>Austin</item>
+        <item>Baltimore</item>
+        <item>Boston</item>
+        <item>Charlotte</item>
+        <item>Chicago</item>
+        <item>Cleveland</item>
+        <item>Colorado Springs</item>
+        <item>Columbus</item>
+        <item>Dallas</item>
+        <item>Denver</item>
+        <item>Detroit</item>
+        <item>El Paso</item>
+        <item>Fort Worth</item>
+        <item>Fresno</item>
+        <item>Houston</item>
+        <item>Indianapolis</item>
+        <item>Jacksonville</item>
+        <item>Kansas City</item>
+        <item>Las Vegas</item>
+        <item>Long Beach</item>
+        <item>Los Angeles</item>
+        <item>Louisville</item>
+        <item>Memphis</item>
+        <item>Mesa</item>
+        <item>Miami</item>
+        <item>Milwaukee</item>
+        <item>Nashville</item>
+        <item>New York</item>
+        <item>Oakland</item>
+        <item>Oklahoma</item>
+        <item>Omaha</item>
+        <item>Philadelphia</item>
+        <item>Phoenix</item>
+        <item>Portland</item>
+        <item>Raleigh</item>
+        <item>Sacramento</item>
+        <item>San Antonio</item>
+        <item>San Diego</item>
+        <item>San Francisco</item>
+        <item>San Jose</item>
+        <item>Tucson</item>
+        <item>Tulsa</item>
+        <item>Virginia Beach</item>
+        <item>Washington</item>
+    </string-array>
+
+    <!-- 食物分類 -->
+    <string-array name="categories">
+        <item>@string/value_any_category</item>
+        <item>Brunch</item>
+        <item>Burgers</item>
+        <item>Coffee</item>
+        <item>Deli</item>
+        <item>Dim Sum</item>
+        <item>Indian</item>
+        <item>Italian</item>
+        <item>Mediterranean</item>
+        <item>Mexican</item>
+        <item>Pizza</item>
+        <item>Ramen</item>
+        <item>Sushi</item>
+    </string-array>
+
+    <!-- 價格篩選器 -->
+    <string-array name="prices">
+        <item>@string/value_any_price</item>
+
+        <item>@string/price_1</item>
+        <item>@string/price_2</item>
+        <item>@string/price_3</item>
+    </string-array>
+
+    <!-- Ways you can sort restaurants -->
+    <string-array name="sort_by">
+        <item>@string/sort_by_rating</item>
+        <item>@string/sort_by_popularity</item>
+        <item>@string/sort_by_price</item>
+    </string-array>
+
+    </resources>

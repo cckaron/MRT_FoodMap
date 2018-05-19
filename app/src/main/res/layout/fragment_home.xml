@@ -12,4 +12,10 @@
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
 
+    <Button
+        android:id="@+id/searching"
+        android:layout_width="166dp"
+        android:layout_height="83dp"
+        android:text="@string/searching" />
+
 </FrameLayout>
