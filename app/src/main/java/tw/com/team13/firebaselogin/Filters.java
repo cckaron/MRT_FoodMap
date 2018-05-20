@@ -3,11 +3,12 @@ package tw.com.team13.firebaselogin;
 import android.content.Context;
 import android.text.TextUtils;
 
-import tw.com.team13.model.Restaurant;
-import tw.com.team13.util.RestaurantUtil;
+
 import com.google.firebase.firestore.Query;
 
-import tw.com.team13.firebaselogin.R;
+import tw.com.team13.model.Restaurant;
+import tw.com.team13.util.RestaurantUtil;
+
 /**
  * Object for passing filters around.
  */

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.com.team13.model.Restaurant;
 import com.google.firebase.firestore.Query;
@@ -42,7 +43,6 @@ public class FilterDialogFragment extends DialogFragment {
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
 
-
     private FilterListener mFilterListener;
 
     @Nullable
@@ -50,8 +50,9 @@ public class FilterDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
+        ButterKnife.bind(this, mRootView);
+
         return mRootView;
     }
 
