@@ -31,7 +31,8 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     private ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
 
-    public FirestoreAdapter(Query query) {
+    // 為什麼需要額外新增一個方法? 因為其他的Adapter都需要繼承FireStore
+    public FirestoreAdapter(Query query) {  //把FireStore的資料放在mQuery內
         mQuery = query;
     }
 
@@ -43,7 +44,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
             return;
         }
 
-        // Dispatch the event
+        // Dispatch the event (派發事件) 查看快照之間的更改
         Log.d(TAG, "onEvent:numChanges:" + documentSnapshots.getDocumentChanges().size());
         for (DocumentChange change : documentSnapshots.getDocumentChanges()) {
             switch (change.getType()) {
@@ -64,18 +65,20 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     public void startListening() {
         if (mQuery != null && mRegistration == null) {
+            //把資料放進mQuery內
             mRegistration = mQuery.addSnapshotListener(this);
         }
     }
 
     public void stopListening() {
+        // 刪除mQuery內的資料
         if (mRegistration != null) {
             mRegistration.remove();
             mRegistration = null;
         }
 
         mSnapshots.clear();
-        notifyDataSetChanged();
+        notifyDataSetChanged();  //Update QuerySnapshot
     }
 
     public void setQuery(Query query) {
