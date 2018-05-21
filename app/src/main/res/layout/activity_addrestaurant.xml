@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tw.com.team13.firebaselogin.addStoreActivity"
+    tools:context="tw.com.team13.firebaselogin.addRestaurantActivity"
     android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
@@ -46,6 +47,24 @@
         android:id="@+id/storeDescription_edit" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/uploadImage"
+        android:id="@+id/textView4" />
+
+    <Button
+        android:id="@+id/chooseImage_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload" />
+
+    <ImageView
+        android:id="@+id/imageView_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="159dp"
+        android:src="@drawable/logo" />
 
     <Button
         android:id="@+id/add_button"

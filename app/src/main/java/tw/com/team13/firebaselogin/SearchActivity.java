@@ -168,7 +168,10 @@ public class SearchActivity extends AppCompatActivity implements
                 onAddItemsClicked();
                 break;
             case R.id.menu_sign_out:
-                AuthUI.getInstance().signOut(this);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent();
+                intent.setClass(this, HomeActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

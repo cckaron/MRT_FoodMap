@@ -63,7 +63,7 @@ public class Fragment_Member extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), addStoreActivity.class);
+                intent.setClass(getActivity(), addRestaurantActivity.class);
                 startActivity(intent);
             }
         });

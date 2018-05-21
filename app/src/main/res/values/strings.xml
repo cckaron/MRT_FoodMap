@@ -84,6 +84,8 @@
     <string name="option_exit">離開</string>
     <string name="message_unknown">未知錯誤</string>
     <string name="searching">搜尋</string>
+    <string name="uploadImage">上傳圖片</string>
+    <string name="upload">上傳</string>
 
 
     <!-- 捷運線 -->
