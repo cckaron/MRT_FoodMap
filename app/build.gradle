@@ -39,13 +39,16 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1' // butter knife
     implementation 'com.github.bumptech.glide:glide:3.7.0' //import glide
     implementation 'me.zhanghai.android.materialratingbar:library:1.3.1' //import Rating Bar
-    implementation 'com.firebaseui:firebase-ui-auth:3.3.1'  // FirebaseUI (for authentication)
+    implementation 'com.firebaseui:firebase-ui-auth:3.3.1'  // FireBaseUI (for authentication)
     implementation 'com.google.firebase:firebase-storage:15.0.2'  //import FireStore
     implementation 'com.google.firebase:firebase-firestore:16.0.0'  //import CloudStore
     implementation 'com.android.support:multidex:1.0.3' // to resolve "Cannot fit requested classes in a single dex file. Try supplying a main-dex list."
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2' //for FireStorage
+    androidTestImplementation 'com.android.support.test:rules:1.0.2' // for FireStorage
+
 }
 
 apply plugin: 'com.google.gms.google-services'

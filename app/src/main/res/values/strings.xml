@@ -86,6 +86,24 @@
     <string name="searching">搜尋</string>
     <string name="uploadImage">上傳圖片</string>
     <string name="upload">上傳</string>
+    <string name="download_image">下載圖片</string>
+    <string name="success">下載成功</string>
+    <string name="progress_uploading">上傳中...</string>
+    <string name="progress_downloading">正在下載...</string>
+    <string name="upload_success">上傳成功</string>
+    <string name="upload_failure">上傳失敗!</string>
+    <string name="download_button">下載</string>
+    <string name="label_link">下載網址</string>
+    <string name="download_success">下載成功</string>
+    <string name="download_failure">下載失敗</string>
+    <string name="log_out">登出</string>
+    <string name="sign_in_prompt">登入以繼續</string>
+    <string name="sign_in_anonymously">匿名登入</string>
+    <string name="take_photo_prompt">上傳圖片</string>
+    <string name="camera_button_text">上傳</string>
+    <string name="label_download">下載圖片</string>
+    <string name="download">下載</string>
+    <string name="progress_auth">登入中..</string>
 
 
     <!-- 捷運線 -->
