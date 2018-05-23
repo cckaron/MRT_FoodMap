@@ -84,6 +84,8 @@ public class SearchActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
+        getSupportActionBar().hide(); // 把原本的toolbar隱藏起來
+
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);

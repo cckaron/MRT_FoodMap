@@ -11,10 +11,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +27,30 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @BindView(R.id.storeName_edit)
+    EditText storeNameEdit;
+
+    @BindView(R.id.storeAddress_edit)
+    EditText storeAddressEdit;
+
+    @BindView(R.id.storeDescription_edit)
+    EditText storeDescriptionEdit;
+
+
 
 
     private static final String TAG = "Storage#MainActivity";
@@ -51,10 +70,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseUser user;
     private String userID;
 
+    private String storeName;
+    private String storeAddress;
+    private String storeDescription;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addrestaurant);
+        ButterKnife.bind(this);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -165,6 +191,54 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "已取消上傳圖片", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @OnClick(R.id.add_button)
+    public void onClick() {
+
+        final FirebaseFirestore db = FirebaseFirestore.getInstance(); // Access a Cloud Firestore instance
+
+        storeName = storeNameEdit.getText().toString();
+        storeAddress = storeAddressEdit.getText().toString();
+        storeDescription = storeDescriptionEdit.getText().toString();
+
+        //filter
+        if (TextUtils.isEmpty(storeName)){
+            return;
+        }
+
+                /* add to Cloud Firestore
+                  Create a new store with name, address and description */
+        Map<String, Object> store = new HashMap<>();
+        store.put("ID", userID);
+        store.put("name", storeName);
+        store.put("Address", storeAddress);
+        store.put("Description", storeDescription);
+        store.put("category", "韓式料理");
+        store.put("city", "淡水站");
+        store.put("photo", mDownloadUrl.toString());
+        store.put("price", 1);
+        store.put("avgRating", 1);
+        store.put("numRating", 1);
+
+
+        // Add a new document with a generated ID
+        db.collection("restaurants")
+                .add(store)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(UploadActivity.this, R.string.addStore_Success, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent();
+                        intent.setClass(UploadActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UploadActivity.this, R.string.addStore_Fail, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void uploadFromUri(Uri fileUri) {
@@ -279,13 +353,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.chooseImage_button) {
             launchCamera();
-        } else if (i == R.id.add_button) {
-            beginDownload();
         }
     }
 }

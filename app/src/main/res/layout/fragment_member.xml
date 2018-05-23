@@ -26,7 +26,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="29dp"
         android:layout_marginStart="29dp"
-        android:text="@string/setting"
+        android:text="@string/add_store"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="parent" />
