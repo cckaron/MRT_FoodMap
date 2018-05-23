@@ -13,8 +13,11 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -30,14 +33,18 @@ public class MyUploadService extends MyBaseTaskService {
     /** Intent Extras **/
     public static final String EXTRA_FILE_URI = "extra_file_uri";
     public static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
+    public static final String EXTRA_USER_ID = "extra_user_id";
 
     // [START declare_ref]
     private StorageReference mStorageRef;
     // [END declare_ref]
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         // [START get_storage_ref]
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -55,15 +62,18 @@ public class MyUploadService extends MyBaseTaskService {
         Log.d(TAG, "onStartCommand:" + intent + ":" + startId);
         if (ACTION_UPLOAD.equals(intent.getAction())) {
             Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI);
-            uploadFromUri(fileUri);
+            String UID = intent.getStringExtra(EXTRA_USER_ID);
+            uploadFromUri(fileUri, UID);
         }
 
         return START_REDELIVER_INTENT;
     }
 
+
     // [START upload_from_uri]
-    private void uploadFromUri(final Uri fileUri) {
+    private void uploadFromUri(final Uri fileUri, final String UID) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
+
 
         // [START_EXCLUDE]
         taskStarted();
@@ -73,7 +83,8 @@ public class MyUploadService extends MyBaseTaskService {
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
         final StorageReference photoRef = mStorageRef.child("photos")
-                .child(fileUri.getLastPathSegment());
+                .child(UID)
+                .child("store.jpg");
         // [END get_child_ref]
 
         // Upload file to Firebase Storage

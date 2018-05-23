@@ -37,15 +37,16 @@
 
         <activity android:name=".SearchActivity" />
 
-        <activity android:name=".addRestaurantActivity" />
-
         <activity
             android:name=".UploadActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask">
+        </activity>
 
         <activity
             android:name=".TestaddRestaurantActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask">
+
+        </activity>
 
         <service
             android:name=".MyDownloadService"

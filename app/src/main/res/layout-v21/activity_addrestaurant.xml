@@ -75,20 +75,22 @@
             <ImageView
                 android:id="@+id/imageView_restaurant"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:src="@drawable/logo" />
 
             <TextView
                 android:id="@+id/image_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_link" />
+                android:text="@string/label_link"
+                android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
             <TextView
                 android:id="@+id/picture_download_uri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text=""
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </LinearLayout>
 

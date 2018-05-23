@@ -18,6 +18,7 @@ public class Fragment_Member extends Fragment {
     private Button addStoreBtn;
     private Button logoutBtn;
     private String name;
+    private String userID;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class Fragment_Member extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userID = user.getUid();
         TextView textView = getView().findViewById(R.id.textView);
         if (user != null && user.isEmailVerified()){
             name = user.getEmail();
@@ -61,7 +63,6 @@ public class Fragment_Member extends Fragment {
         addStoreBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), UploadActivity.class);
                 startActivity(intent);

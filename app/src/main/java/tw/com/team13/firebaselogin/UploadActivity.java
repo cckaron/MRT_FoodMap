@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +15,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     private static final String TAG = "Storage#MainActivity";
 
@@ -31,18 +43,27 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private BroadcastReceiver mBroadcastReceiver;
     private ProgressDialog mProgressDialog;
+    private FirebaseAuth mAuth;
 
     private Uri mDownloadUrl = null;
     private Uri mFileUri = null;
+
+    private FirebaseUser user;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addrestaurant);
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        userID = user.getUid();
+
         // Click listeners
         findViewById(R.id.chooseImage_button).setOnClickListener(this);
-        findViewById(R.id.downloadImage_button).setOnClickListener(this);
+        findViewById(R.id.add_button).setOnClickListener(this);
 
         // Restore instance state
         if (savedInstanceState != null) {
@@ -100,6 +121,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         updateUI();
 
+        if (mAuth.getCurrentUser() == null){
+            Intent intent = new Intent();
+            intent.setClass(this, HomeActivity.class);
+            startActivity(intent);
+        }
+
+
         // Register receiver for uploads and downloads
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
         manager.registerReceiver(mBroadcastReceiver, MyDownloadService.getIntentFilter());
@@ -134,7 +162,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     Log.w(TAG, "File URI is null");
                 }
             } else {
-                Toast.makeText(this, "Taking picture failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "已取消上傳圖片", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -153,6 +181,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         // even if this Activity is killed or put in the background
         startService(new Intent(this, MyUploadService.class)
                 .putExtra(MyUploadService.EXTRA_FILE_URI, fileUri)
+                .putExtra(MyUploadService.EXTRA_USER_ID, userID)
                 .setAction(MyUploadService.ACTION_UPLOAD));
 
         // Show loading spinner
@@ -191,19 +220,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         updateUI();
     }
 
-    private void updateUI() {
-
-        // Download URL and Download button
-        if (mDownloadUrl != null) {
-            ((TextView) findViewById(R.id.picture_download_uri))
-                    .setText(mDownloadUrl.toString());
-            findViewById(R.id.layout_download).setVisibility(View.VISIBLE);
-        } else {
-            ((TextView) findViewById(R.id.picture_download_uri))
-                    .setText(null);
-            findViewById(R.id.layout_download).setVisibility(View.GONE);
-        }
-    }
 
     private void showMessageDialog(String title, String message) {
         AlertDialog ad = new AlertDialog.Builder(this)
@@ -229,9 +245,26 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+
+    @BindView(R.id.imageView_restaurant)
+    ImageView imageView;
+
+    private void updateUI(){
+        ButterKnife.bind(this);
+        if (mDownloadUrl != null){
+            Picasso.with(this).load(mDownloadUrl).into(imageView);
+            ((TextView) findViewById(R.id.picture_download_uri))
+                    .setText(mDownloadUrl.toString());
+            findViewById(R.id.layout_download).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.layout_download).setVisibility(View.GONE);
+        }
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_upload, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -240,7 +273,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         int i = item.getItemId();
         if (i == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
-            updateUI();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -252,7 +284,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         int i = v.getId();
         if (i == R.id.chooseImage_button) {
             launchCamera();
-        }else if (i == R.id.downloadImage_button) {
+        } else if (i == R.id.add_button) {
             beginDownload();
         }
     }

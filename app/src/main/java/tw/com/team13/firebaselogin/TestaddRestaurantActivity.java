@@ -41,13 +41,12 @@ public class TestaddRestaurantActivity extends AppCompatActivity implements View
     private Uri mDownloadUrl = null;
     private Uri mFileUri = null;
 
+    private String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_main);
 
         // Click listeners
         findViewById(R.id.button_camera).setOnClickListener(this);
@@ -270,7 +269,7 @@ public class TestaddRestaurantActivity extends AppCompatActivity implements View
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_upload, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

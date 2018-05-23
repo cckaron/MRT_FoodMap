@@ -21,6 +21,10 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:27.1.1'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -43,6 +47,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:15.0.2'  //import FireStore
     implementation 'com.google.firebase:firebase-firestore:16.0.0'  //import CloudStore
     implementation 'com.android.support:multidex:1.0.3' // to resolve "Cannot fit requested classes in a single dex file. Try supplying a main-dex list."
+
+    implementation 'com.squareup.picasso:picasso:2.5.2' // use picasso to show picture from url
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

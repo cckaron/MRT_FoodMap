@@ -35,7 +35,7 @@ public class Fragment_Feed extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), addRestaurantActivity.class); //用getActivity()尋找當前Activity,前往addStoreActivity
+                intent.setClass(getActivity(), UploadActivity.class); //用getActivity()尋找當前Activity,前往addStoreActivity
                 startActivity(intent);
             }
         });
