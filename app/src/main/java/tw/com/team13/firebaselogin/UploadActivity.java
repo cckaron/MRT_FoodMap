@@ -80,6 +80,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addrestaurant);
+        getSupportActionBar().hide();
+
         ButterKnife.bind(this);
 
         // Initialize Firebase Auth

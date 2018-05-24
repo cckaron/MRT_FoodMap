@@ -14,7 +14,7 @@ import butterknife.OnClick;
 
 public class Fragment_Home extends Fragment {
 
-    @OnClick(R.id.searching)
+    @OnClick(R.id.search_icon)
     public void onClick(){
         Intent intent = new Intent();
         intent.setClass(getActivity(), SearchActivity.class);
@@ -34,8 +34,6 @@ public class Fragment_Home extends Fragment {
 
     @Override
     public void onStart() {
-        TextView textView = getView().findViewById(R.id.textOne);
-        textView.setText("探索美食");
         super.onStart();
     }
 }
