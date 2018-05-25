@@ -19,6 +19,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import java.util.ArrayList;
 
 import tw.com.team13.Utils.BottomNavigationViewHelper;
+import tw.com.team13.Utils.GridImageAdapter;
 import tw.com.team13.Utils.UniversalImageLoader;
 import tw.com.team13.firebaselogin.R;
 
@@ -47,10 +48,27 @@ public class ProfileActivity extends AppCompatActivity{
         setupToolbar();
         setupActivityWidgets();
         setProfileImage();
+
+        tempGridSetup();
+    }
+
+    private void tempGridSetup(){
+        ArrayList<String> imgURLs = new ArrayList<>();
+        imgURLs.add("https://www.mcdonalds.com/content/dam/usa/documents/mcdelivery/mcdelivery_new11.jpg");
+        imgURLs.add("https://www.goodfood.com.au/content/dam/images/h/0/f/a/q/i/image.related.wideLandscape.940x529.h0fa4n.png/1515456591895.jpg");
+        imgURLs.add("https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-overlay-tease.jpg");
+        imgURLs.add("https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2F1519844002%2Ffast-food-mobile-apps-chick-fil-a-FT-BLOG0218.jpg%3Fitok%3D7d_gu0JA&w=700&q=85");
+        imgURLs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ysvl3tWWeVuBNW4UUCX6TLuzsjSrzBGRRKbRJto-CNxHsbWgRA");
+        imgURLs.add("https://cdn.aarp.net/content/dam/aarp/benefits_discounts/discounts/2015_07/1140-Outback-Bloomin-Onion-Original.web.360.207.jpg");
+
+        setupImageGrid(imgURLs);
     }
 
     private void setupImageGrid(ArrayList<String> imgURLs){
         GridView gridView = findViewById(R.id.gridView);
+
+        GridImageAdapter adapter = new GridImageAdapter(mContext, R.layout.layout_grid_imageview, "", imgURLs);
+        gridView.setAdapter(adapter);
     }
 
     private void setProfileImage(){
