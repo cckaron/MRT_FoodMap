@@ -17,11 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -32,6 +28,14 @@
         <activity android:name=".LoginActivity" />
 
         <activity android:name=".MainActivity2" />
+
+        <activity android:name="tw.com.team13.Home.MainActivity_test">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".RestaurantDetailActivity"/>
 
@@ -47,6 +51,13 @@
             android:launchMode="singleTask">
 
         </activity>
+
+        <activity android:name="tw.com.team13.Likes.LikesActivity"></activity>
+        <activity android:name="tw.com.team13.Profile.ProfileActivity"></activity>
+        <activity android:name="tw.com.team13.Share.ShareActivity"></activity>
+        <activity android:name="tw.com.team13.Explore.ExploreActivity"></activity>
+        <activity android:name="tw.com.team13.Profile.AccountSettingsActivity" />
+
 
         <service
             android:name=".MyDownloadService"

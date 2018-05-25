@@ -21,6 +21,11 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public class MyUploadService extends MyBaseTaskService {
 
     private static final String TAG = "MyUploadService";

@@ -55,6 +55,13 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.5.2' // use picasso to show picture from url
 
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4' // bottom navigation view
+
+    implementation 'de.hdodenhof:circleimageview:2.1.0' // Circle Image View
+
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' //Universal-Image-Loader
+
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

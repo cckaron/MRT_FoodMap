@@ -18,6 +18,11 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import tw.com.team13.firebaselogin.R;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * RecyclerView adapter for a list of {@link Rating}.
  */
 public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {

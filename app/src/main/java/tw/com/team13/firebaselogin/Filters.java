@@ -10,6 +10,11 @@ import tw.com.team13.model.Restaurant;
 import tw.com.team13.util.RestaurantUtil;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * Object for passing filters around.
  */
 public class Filters {

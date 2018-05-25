@@ -5,6 +5,11 @@ import android.arch.lifecycle.ViewModel;
 import tw.com.team13.firebaselogin.Filters;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * ViewModel for {@link com.google.firebase.example.fireeats.MainActivity}.
  */
 

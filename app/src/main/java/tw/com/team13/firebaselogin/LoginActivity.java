@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextInputLayout accoutLayout;

@@ -36,6 +36,11 @@ import tw.com.team13.model.Rating;
 import tw.com.team13.model.Restaurant;
 import tw.com.team13.util.RestaurantUtil;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public class RestaurantDetailActivity extends AppCompatActivity
         implements EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
 

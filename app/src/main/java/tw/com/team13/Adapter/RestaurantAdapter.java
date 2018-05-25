@@ -20,6 +20,11 @@ import tw.com.team13.model.Restaurant;
 import tw.com.team13.util.RestaurantUtil;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * RecyclerView adapter for a list of Restaurants.
  */
 public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHolder> {

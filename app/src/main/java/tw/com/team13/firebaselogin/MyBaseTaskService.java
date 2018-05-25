@@ -12,6 +12,11 @@ import android.util.Log;
 
 import tw.com.team13.firebaselogin.R;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public abstract class MyBaseTaskService extends Service {
 
     private static final String CHANNEL_ID_DEFAULT = "default";

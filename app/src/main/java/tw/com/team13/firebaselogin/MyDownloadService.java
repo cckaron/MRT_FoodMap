@@ -17,6 +17,11 @@ import com.google.firebase.storage.StreamDownloadTask;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public class MyDownloadService extends MyBaseTaskService {
 
     private static final String TAG = "Storage#DownloadService";

@@ -9,6 +9,11 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
 public class HomeActivity extends AppCompatActivity{  //繼承 AppCompatActivity
     private FirebaseAuth auth;  // Auth 認證用
     FirebaseAuth.AuthStateListener authListener;  // authListener 監聽認證狀態

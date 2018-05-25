@@ -14,6 +14,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * RecyclerView adapter for displaying the results of a Firestore {@link Query}.
  *
  * Note that this class forgoes some efficiency to gain simplicity. For example, the result of

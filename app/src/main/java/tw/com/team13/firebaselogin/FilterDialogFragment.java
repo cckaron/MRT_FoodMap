@@ -17,6 +17,11 @@ import tw.com.team13.model.Restaurant;
 import com.google.firebase.firestore.Query;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * Dialog Fragment containing filter form.
  */
 public class FilterDialogFragment extends DialogFragment {

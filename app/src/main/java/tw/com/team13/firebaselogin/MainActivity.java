@@ -9,6 +9,10 @@ import android.view.MenuItem;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
+/**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
 
 public class MainActivity extends AppCompatActivity {
 

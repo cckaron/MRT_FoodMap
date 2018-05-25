@@ -18,6 +18,11 @@ import butterknife.OnClick;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
+ * @author Chun-Kai Kao on 2018/5/26 01:34
+ * @github http://github.com/cckaron
+ */
+
+/**
  * Dialog Fragment containing rating form.
  */
 public class RatingDialogFragment extends DialogFragment {
