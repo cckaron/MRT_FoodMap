@@ -62,7 +62,7 @@
     <string name="all_restaurants">所有餐廳</string>
     <string name="header_filters">篩選器</string>
     <string name="value_any_price">任何價格</string>
-    <string name="price_1">$</string>
+    <string name="price_1">0~100 元</string>
     <string name="price_2">$$</string>
     <string name="price_3">$$</string>
     <string name="sort_by_rating">依評分排序</string>
@@ -107,73 +107,277 @@
     <string name="home">首頁</string>
 
 
-    <!-- 捷運線 -->
     <string-array name="cities">
-        <item>@string/value_any_city</item>
-        <item>Albuquerque</item>
-        <item>Arlington</item>
-        <item>Atlanta</item>
-        <item>Austin</item>
-        <item>Baltimore</item>
-        <item>Boston</item>
-        <item>Charlotte</item>
-        <item>Chicago</item>
-        <item>Cleveland</item>
-        <item>Colorado Springs</item>
-        <item>Columbus</item>
-        <item>Dallas</item>
-        <item>Denver</item>
-        <item>Detroit</item>
-        <item>El Paso</item>
-        <item>Fort Worth</item>
-        <item>Fresno</item>
-        <item>Houston</item>
-        <item>Indianapolis</item>
-        <item>Jacksonville</item>
-        <item>Kansas City</item>
-        <item>Las Vegas</item>
-        <item>Long Beach</item>
-        <item>Los Angeles</item>
-        <item>Louisville</item>
-        <item>Memphis</item>
-        <item>Mesa</item>
-        <item>Miami</item>
-        <item>Milwaukee</item>
-        <item>Nashville</item>
-        <item>New York</item>
-        <item>Oakland</item>
-        <item>Oklahoma</item>
-        <item>Omaha</item>
-        <item>Philadelphia</item>
-        <item>Phoenix</item>
-        <item>Portland</item>
-        <item>Raleigh</item>
-        <item>Sacramento</item>
-        <item>San Antonio</item>
-        <item>San Diego</item>
-        <item>San Francisco</item>
-        <item>San Jose</item>
-        <item>Tucson</item>
-        <item>Tulsa</item>
-        <item>Virginia Beach</item>
-        <item>Washington</item>
-    </string-array>
+
+    <item>@string/value_any_city</item>
+
+    <item>---------淡水信義線---------</item>
+
+    <item>淡水站</item>
+
+    <item>紅樹林站</item>
+
+    <item>竹圍站</item>
+
+    <item>關渡站</item>
+
+    <item>忠義站</item>
+
+    <item>復興崗站</item>
+
+    <item>北投站</item>
+
+    <item>新北投站</item>
+
+    <item>奇岩站</item>
+
+    <item>唭哩岸站</item>
+
+    <item>石牌站</item>
+
+    <item>明德站</item>
+
+    <item>芝山站</item>
+
+    <item>士林站</item>
+
+    <item>劍潭站</item>
+
+    <item>圓山站</item>
+
+    <item>民權西路站</item>
+
+    <item>雙連站</item>
+
+    <item>中山站</item>
+
+    <item>台北車站</item>
+
+    <item>台大醫院站</item>
+
+    <item>中正紀念堂站</item>
+
+    <item>東門站</item>
+
+    <item>大安森林公園站</item>
+
+    <item>大安站</item>
+
+    <item>信義安和站</item>
+
+    <item>台北101/世貿站</item>
+
+    <item>象山站</item>
+
+    <item>---------松山新店線---------</item>
+
+    <item>松山</item>
+
+    <item>南京三民</item>
+
+    <item>南京復興</item>
+
+    <item>松江南京</item>
+
+    <item>中山</item>
+
+    <item>北門</item>
+
+    <item>西門</item>
+
+    <item>小南門</item>
+
+    <item>中正紀念堂</item>
+
+    <item>古亭</item>
+
+    <item>台電大樓</item>
+
+    <item>公館</item>
+
+    <item>萬隆</item>
+
+    <item>景美</item>
+
+    <item>大坪林</item>
+
+    <item>七張</item>
+
+    <item>小碧潭站</item>
+
+    <item>新店區公所</item>
+
+    <item>新店</item>
+
+    <item>---------板南線---------</item>
+
+    <item>南港展覽館</item>
+
+    <item>昆陽</item>
+
+    <item>後山碑</item>
+
+    <item>永春</item>
+
+    <item>市政府</item>
+
+    <item>忠孝敦化</item>
+
+    <item>忠孝新生</item>
+
+    <item>善導寺</item>
+
+    <item>台北車站</item>
+
+    <item>台大醫院</item>
+
+    <item>西門</item>
+
+    <item>龍山寺</item>
+
+    <item>江子翠</item>
+
+    <item>新埔</item>
+
+    <item>板橋</item>
+
+    <item>府中</item>
+
+    <item>亞東醫院</item>
+
+    <item>海山</item>
+
+    <item>土城</item>
+
+    <item>永寧</item>
+
+    <item>頂埔</item>
+
+    <item>---------中和新蘆線---------</item>
+
+    <item>迴龍站</item>
+
+    <item>丹鳳站</item>
+
+    <item>輔大站</item>
+
+    <item>新莊站</item>
+
+    <item>頭前庄站</item>
+
+    <item>先嗇宮站</item>
+
+    <item>三重站</item>
+
+    <item>菜寮站</item>
+
+    <item>台北橋站</item>
+
+    <item>大橋頭站</item>
+
+    <item>蘆洲站</item>
+
+    <item>三民高中站</item>
+
+    <item>徐匯中學站</item>
+
+    <item>三和國中站</item>
+
+    <item>三重國小站</item>
+
+    <item>民權西路站</item>
+
+    <item>中山國小站</item>
+
+    <item>行天宮站</item>
+
+    <item>松江南京站</item>
+
+    <item>忠孝新生站</item>
+
+    <item>東門站</item>
+
+    <item>古亭站</item>
+
+    <item>頂溪站</item>
+
+    <item>永安市場站</item>
+
+    <item>景安站</item>
+
+    <item>南勢角站</item>
+
+    <item>---------文湖線---------</item>
+
+    <item>南港展覽館</item>
+
+    <item>南港軟體園區</item>
+
+    <item>東湖</item>
+
+    <item>蘆洲</item>
+
+    <item>大湖公園</item>
+
+    <item>內湖</item>
+
+    <item>文德</item>
+
+    <item>港墘</item>
+
+    <item>西湖</item>
+
+    <item>劍南路</item>
+
+    <item>大直</item>
+
+    <item>松山機場</item>
+
+    <item>中山國中</item>
+
+    <item>南京復興</item>
+
+    <item>忠孝復興</item>
+
+    <item>大安</item>
+
+    <item>科技大樓</item>
+
+    <item>六張犁</item>
+
+    <item>麟光</item>
+
+    <item>辛亥</item>
+
+    <item>萬芳社區</item>
+
+    <item>木柵</item>
+
+    <item>動物園</item>
+
+</string-array>
 
     <!-- 食物分類 -->
     <string-array name="categories">
         <item>@string/value_any_category</item>
-        <item>Brunch</item>
-        <item>Burgers</item>
-        <item>Coffee</item>
-        <item>Deli</item>
-        <item>Dim Sum</item>
-        <item>Indian</item>
-        <item>Italian</item>
-        <item>Mediterranean</item>
-        <item>Mexican</item>
-        <item>Pizza</item>
-        <item>Ramen</item>
-        <item>Sushi</item>
+        <item>吃到飽</item>
+        <item>米其林/頂級餐廳</item>
+        <item>火鍋</item>
+        <item>早午餐</item>
+        <item>夜市小吃</item>
+        <item>燒烤/居酒屋</item>
+        <item>鐵板燒</item>
+        <item>美式餐廳</item>
+        <item>義式料理</item>
+        <item>港式茶餐廳</item>
+        <item>韓式料理</item>
+        <item>日式料理</item>
+        <item>中式熱炒</item>
+        <item>小吃</item>
+        <item>西式/牛排</item>
+        <item>主題餐廳</item>
+        <item>烘培點心</item>
+        <item>甜品/冰飲</item>
     </string-array>
 
     <!-- 價格篩選器 -->

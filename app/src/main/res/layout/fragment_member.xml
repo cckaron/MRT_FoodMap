@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme"
+        app:logo="@drawable/ic_restaurant_white_24px"
+        app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:title="@string/app_name"
+        app:titleMarginStart="24dp"
+        app:titleTextColor="@android:color/white" />
+
     <Button
         android:id="@+id/button5"
         android:layout_width="0dp"
@@ -138,7 +150,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginRight="32dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="70dp"
         android:text="@string/username"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
