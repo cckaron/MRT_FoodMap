@@ -108,6 +108,10 @@
     <string name="edit_profile_fragment">編輯個人資訊</string>
     <string name="sign_out_fragment">登出</string>
     <string name="changeProfilePhoto">更換大頭貼</string>
+    <string name="full_name">使用者名稱</string>
+    <string name="auth_failed">登入失敗</string>
+    <string name="auth_success">登入成功</string>
+    <string name="register_failed">註冊失敗</string>
 
 
     <string-array name="cities">

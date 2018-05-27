@@ -9,6 +9,9 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import tw.com.team13.Login.LoginActivity;
+import tw.com.team13.Login.RegisterActivity;
+
 /**
  * @author Chun-Kai Kao on 2018/5/26 01:34
  * @github http://github.com/cckaron

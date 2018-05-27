@@ -23,13 +23,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name="tw.com.team13.Login.RegisterActivity" />
 
-        <activity android:name=".LoginActivity" />
+        <activity android:name="tw.com.team13.Login.LoginActivity" />
 
         <activity android:name=".MainActivity2" />
 
-        <activity android:name="tw.com.team13.Home.MainActivity_test">
+        <activity android:name="tw.com.team13.Home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

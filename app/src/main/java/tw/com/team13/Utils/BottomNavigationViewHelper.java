@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import tw.com.team13.Explore.ExploreActivity;
+import tw.com.team13.Home.HomeActivity;
 import tw.com.team13.Likes.LikesActivity;
-import tw.com.team13.Home.MainActivity_test;
 import tw.com.team13.Profile.ProfileActivity;
 import tw.com.team13.firebaselogin.R;
 import tw.com.team13.Share.ShareActivity;
@@ -40,7 +40,7 @@ public class BottomNavigationViewHelper {
                 switch (item.getItemId()){
 
                     case R.id.ic_house:
-                        Intent intent1 = new Intent(context, MainActivity_test.class); //ACTIVITY_NUM = 0
+                        Intent intent1 = new Intent(context, HomeActivity.class); //ACTIVITY_NUM = 0
                         context.startActivity(intent1);
                         break;
                     case R.id.ic_search:
