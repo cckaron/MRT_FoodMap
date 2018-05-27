@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import tw.com.team13.Utils.BottomNavigationViewHelper;
+import tw.com.team13.Utils.FirebaseMethods;
 import tw.com.team13.firebaselogin.R;
 
 /**

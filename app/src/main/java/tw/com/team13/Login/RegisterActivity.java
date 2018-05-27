@@ -15,6 +15,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import tw.com.team13.Utils.FirebaseMethods;
 import tw.com.team13.firebaselogin.R;
@@ -39,6 +47,11 @@ public class RegisterActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseMethods firebaseMethods;
+    private FirebaseFirestore mFireStore;
+    private CollectionReference ColRef;
+    private String userID;
+    private Boolean random;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,20 +123,31 @@ public class RegisterActivity extends AppCompatActivity{
     /**
      * Setup the firebase auth object
      */
-    private void setupFirebaseAuth(){
+    private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up Firebase auth.");
 
         mAuth = FirebaseAuth.getInstance();
+        mFireStore = FirebaseFirestore.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                if (user != null){
-                    Log.d(TAG, "onAuthStateChanged: signed in"+ user.getUid());
-                } else {
-                    Log.d(TAG, "onAuthStateChanged: signed out");
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged: signed in " + user.getUid());
+                    userID = user.getUid();
+                    if (firebaseMethods.checkIfUsernameExists(username)) {
+                        Log.d(TAG, "onDataChange: username already exists. Appending random string to name.");
+                        random = true;
+                    } else {
+                        Log.d(TAG, "onAuthStateChanged: signed out");
+                        random = false;
+                    }
+                    //add new user to the database
+                    Log.d(TAG, "onAuthStateChanged: random is " + random);
+                    FirebaseMethods.addNewUser(email, username, userID, random);
                 }
             }
         };
