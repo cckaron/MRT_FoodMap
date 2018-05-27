@@ -112,6 +112,7 @@
     <string name="auth_failed">登入失敗</string>
     <string name="auth_success">登入成功</string>
     <string name="register_failed">註冊失敗</string>
+    <string name="profile_fragment">profile</string>
 
 
     <string-array name="cities">

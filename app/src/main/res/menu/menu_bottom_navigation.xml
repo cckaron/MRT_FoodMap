@@ -13,7 +13,7 @@
     </item>
     <item
         android:id="@+id/ic_like"
-        android:icon="@drawable/ic_active"
+        android:icon="@drawable/ic_addimage"
         android:title="">
     </item>
     <item

@@ -123,6 +123,9 @@ public class RegisterActivity extends AppCompatActivity{
     /**
      * Setup the firebase auth object
      */
+
+    // TODO: 2018/5/27  Fix the random Function
+
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up Firebase auth.");
 
@@ -142,12 +145,15 @@ public class RegisterActivity extends AppCompatActivity{
                         Log.d(TAG, "onDataChange: username already exists. Appending random string to name.");
                         random = true;
                     } else {
-                        Log.d(TAG, "onAuthStateChanged: signed out");
                         random = false;
                     }
                     //add new user to the database
                     Log.d(TAG, "onAuthStateChanged: random is " + random);
                     FirebaseMethods.addNewUser(email, username, userID, random);
+
+                }else{
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged: signed out");
                 }
             }
         };

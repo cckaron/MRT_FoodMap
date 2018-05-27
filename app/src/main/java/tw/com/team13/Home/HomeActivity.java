@@ -50,6 +50,8 @@ public class HomeActivity extends AppCompatActivity{
         setupBottomNavigationView();
         setupViewPager();
 
+
+
     }
 
     private void initImageLoader(){
@@ -131,14 +133,14 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
         checkCurrentUser(mAuth.getCurrentUser());
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         if (mAuthListener != null){
             mAuth.removeAuthStateListener(mAuthListener);
