@@ -1,7 +1,9 @@
 package tw.com.team13.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +20,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -26,13 +34,14 @@ import java.util.List;
 import tw.com.team13.Utils.BottomNavigationViewHelper;
 import tw.com.team13.Utils.SectionsStatePagerAdapter;
 import tw.com.team13.firebaselogin.R;
+import tw.com.team13.model.User;
 
 /**
  * @author Chun-Kai Kao on 2018/5/26 01:34
  * @github http://github.com/cckaron
  */
 
-public class AccountSettingsActivity extends AppCompatActivity{
+public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "AccountSettingsActivity";
     private static final int ACTIVITY_NUM = 4;
@@ -42,7 +51,8 @@ public class AccountSettingsActivity extends AppCompatActivity{
     private SectionsStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
-    
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +65,7 @@ public class AccountSettingsActivity extends AppCompatActivity{
         setupSettingList();
         setupBottomNavigationView();
         setupFragments();
+        getIncomingIntent();
 
         //setup the backarrow for navigating to "ProfileActivity"
         ImageView backArrow = findViewById(R.id.backArrow);
@@ -67,20 +78,29 @@ public class AccountSettingsActivity extends AppCompatActivity{
         });
     }
 
-    private void setupFragments(){
+    private void getIncomingIntent() {
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(getString(R.string.calling_activity))) {
+            Log.d(TAG, "getIncomingIntent: received incoming intent from " + getString(R.string.profile_activity));
+            setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.edit_profile_fragment)));
+        }
+    }
+
+    private void setupFragments() {
         pagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new EditProfileFragment(), getString(R.string.edit_profile_fragment)); //fragment 0
         pagerAdapter.addFragment(new SignOutFragment(), getString(R.string.sign_out_fragment)); //fragment 1
     }
 
-    private void setViewPager(int fragmentNumber){
+    private void setViewPager(int fragmentNumber) {
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigating to fragment#: " + fragmentNumber);
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setCurrentItem(fragmentNumber);
     }
-    
-    private void setupSettingList(){
+
+    private void setupSettingList() {
         Log.d(TAG, "setupSettingList: initializing 'Account Settings' list.");
         ListView listView = findViewById(R.id.lvAccountSettings);
 
@@ -124,15 +144,15 @@ public class AccountSettingsActivity extends AppCompatActivity{
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment){
+        public void addFragment(Fragment fragment) {
             mFragmentList.add(fragment);
         }
     }
 
     /**
-     *  BottomNavigationView Setup
+     * BottomNavigationView Setup
      */
-    private void setupBottomNavigationView(){
+    private void setupBottomNavigationView() {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);

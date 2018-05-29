@@ -114,6 +114,13 @@
     <string name="register_failed">註冊失敗</string>
     <string name="profile_fragment">profile</string>
 
+    <!-- Intent Extras -->
+
+    <string name="calling_activity">calling_activity</string>
+
+    <!-- activity names -->
+    <string name="profile_activity">Profile Activity</string>
+
 
     <string-array name="cities">
 
