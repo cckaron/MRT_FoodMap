@@ -12,20 +12,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import tw.com.team13.Login.RegisterActivity;
 import tw.com.team13.firebaselogin.R;
 import tw.com.team13.model.StringManipulation;
 import tw.com.team13.model.User;
@@ -40,10 +35,10 @@ public class FirebaseMethods {
     private static final String TAG = "FirebaseMethods";
     private boolean exist = false;
 
+    private String userID;
+
     //firebase
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private String userID;
     private FirebaseFirestore mFirestore;
 
     private Context mContext;
@@ -135,7 +130,7 @@ public class FirebaseMethods {
 
     public static void addNewUser(String email, String username, final String userID, boolean random){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference myRef = db.collection("Users");
+        DocumentReference myRef = db.collection("Users").document(userID);
 
         // if username exists, then append the random ID to username
         if (random){
@@ -146,34 +141,40 @@ public class FirebaseMethods {
         Map<String, Object> user = new HashMap<>();
         user.put("email", email);
         user.put("username", username);
+        user.put("display_name", StringManipulation.condenseUsername(username));
         user.put("user_id", userID);
         user.put("phone_number", "");
         user.put("description", "");
-        user.put("followers", "0");
-        user.put("following", "0");
-        user.put("posts", "0");
+        user.put("followers", 0);
+        user.put("following", 0);
+        user.put("posts", 0);
         user.put("profile_photo", "");
         user.put("website", "");
 
-        myRef.add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "onSuccess: register ID" + userID);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: register fail");
-            }
-        });
+        myRef.set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: DocumentSnapshot successfully written!"); 
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error while writing document", e);
+                    }
+                });
     }
 
     /**
      * Retrieves the account content for the user currently logged in
      */
-    public static void getUserDetails(final String userID, CollectionReference myRef){
+    public static User getUserSettings(final String userID, CollectionReference myRef){
 
         Log.d(TAG, "getUserAccount: retrieving user account settings from FireStore.");
+
+        final User user = new User();
+
+
         myRef.whereEqualTo("user_id", userID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -183,18 +184,65 @@ public class FirebaseMethods {
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot.isEmpty()){
                                 Log.d(TAG, "onSuccess: List empty");
-                                return;
                             } else {
-                                List<DocumentSnapshot> forms = querySnapshot.getDocuments();
-                                int a = forms.indexOf("description");
-                                int b = forms.indexOf("user_id");
-                                Log.d(TAG, "the snapshot is " + forms);
-                                Log.d(TAG, "the index of description is : " + a);
-                                Log.d(TAG, "the index of user_id is : " + b);
+                                for (DocumentSnapshot document : task.getResult()){
+
+                                    try{
+                                        user.setDisplay_name(
+                                                document.getString("display_name")
+                                        );
+                                        user.setUsername(
+                                                document.getString("username")
+                                        );
+                                        user.setWebsite(
+                                                document.getString("website")
+                                        );
+                                        user.setDescription(
+                                                document.getString("description")
+                                        );
+                                        user.setProfile_photo(
+                                                document.getString("profile_photo")
+                                        );
+                                        user.setPosts(
+                                                Long.valueOf(document.getString("posts"))
+                                        );
+                                        user.setFollowing(
+                                                Long.valueOf(document.getString("following"))
+                                        );
+                                        user.setFollowers(
+                                                Long.valueOf(document.getString("followers"))
+                                        );
+
+                                        user.setUsername(
+                                                document.getString("username")
+                                        );
+
+                                        user.setEmail(
+                                                document.getString("email")
+                                        );
+
+                                        user.setPhone_number(
+                                                document.getString("phone_number")
+                                        );
+
+                                        user.setUser_id(
+                                                document.getString("user_id")
+                                        );
+
+                                        Log.d(TAG, "getUserAccountSettings: retrieved information:" + user.toString());
+
+                                    } catch (NullPointerException e){
+                                        Log.e(TAG, "getUserAccountSettings: NullPointerException" + e.getMessage());
+                                    }
+                                }
+
                             }
                         }
                     }
                 });
+
+
+        return new User();
     }
 
 

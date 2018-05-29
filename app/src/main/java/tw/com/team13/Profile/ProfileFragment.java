@@ -18,10 +18,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,10 +35,11 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import org.w3c.dom.Document;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import tw.com.team13.Login.LoginActivity;
 import tw.com.team13.Utils.BottomNavigationViewHelper;
 import tw.com.team13.Utils.FirebaseMethods;
+import tw.com.team13.Utils.UniversalImageLoader;
 import tw.com.team13.firebaselogin.R;
+import tw.com.team13.model.User;
 
 public class ProfileFragment extends Fragment {
 
@@ -42,11 +47,15 @@ public class ProfileFragment extends Fragment {
 
     private static final int ACTIVITY_NUM = 4;
 
+    private String userID;
+
+    private User myuser;
+
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseFirestore mFirebaseFirestore;
-    private CollectionReference myRef;
+    private DocumentReference myRef;
 
     private TextView mPosts, mFollowers, mFollowing, mDisplayName, mUsername, mWebsite, mDescription;
     private ProgressBar mProgressBar;
@@ -82,9 +91,25 @@ public class ProfileFragment extends Fragment {
 
         setupBottomNavigationView();
         setupToolbar();
+
         setupFirebaseAuth();
 
         return view;
+    }
+
+    private void setProfileWidgets (User user){
+        Log.d(TAG, "setProfileWidgets: setting widgets with data retrieving from firestore: " + user.toString());
+
+//        UniversalImageLoader.setImage(user.getProfile_photo(), mProfilePhoto, null, "");
+
+        mDisplayName.setText(user.getDisplay_name());
+        mUsername.setText(user.getUsername());
+        mWebsite.setText(user.getWebsite());
+        mDescription.setText(user.getDescription());
+        mPosts.setText(String.valueOf(user.getPosts()));
+        mFollowers.setText(String.valueOf(user.getFollowers()));
+        mFollowing.setText(String.valueOf(user.getFollowing()));
+
     }
 
     /**
@@ -126,7 +151,6 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
-        myRef = mFirebaseFirestore.collection("Users");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -134,14 +158,43 @@ public class ProfileFragment extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null){
-                    Log.d(TAG, "onAuthStateChanged: signed in"+ user.getUid());
-                    FirebaseMethods.getUserDetails(user.getUid(), myRef);
+                    userID = user.getUid();
+                    Log.d(TAG, "onAuthStateChanged: signed in "+ userID);
+                    myRef = mFirebaseFirestore.collection("Users").document(userID);
+                    myRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            myuser = documentSnapshot.toObject(User.class);
+                            Log.d(TAG, "The user is " + myuser);
+                            setProfileWidgets(myuser);
+                        }
+                    });
+
                 } else {
                     Log.d(TAG, "onAuthStateChanged: signed out");
                 }
             }
         };
+
+//        myRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+//                if (e != null){
+//                    Log.w(TAG, "onEvent: Listen failed", e);
+//                    return;
+//                }
+//
+//                if (queryDocumentSnapshots != null){
+//                    Log.d(TAG, "Current data: " + queryDocumentSnapshots.toString());
+//
+//                } else {
+//                    Log.d(TAG, "Current data: null");
+//                }
+//            }
+//        });
+
     }
+
 
     @Override
     public void onStart() {
