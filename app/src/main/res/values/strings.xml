@@ -117,9 +117,19 @@
     <!-- Intent Extras -->
 
     <string name="calling_activity">calling_activity</string>
+    <string name="selected_image">selected_image</string>
 
     <!-- activity names -->
     <string name="profile_activity">Profile Activity</string>
+    <string name="gallery">圖庫</string>
+    <string name="photo">相片</string>
+    <string name="string_open_camera">照一張相片!</string>
+    <string name="string_next">下一步</string>
+    <string name="string_share">分享</string>
+
+    <!-- photo types -->
+    <string name="new_photo">new_photo</string>
+    <string name="profile_photo">profile_photo</string>
 
 
     <string-array name="cities">

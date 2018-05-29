@@ -88,6 +88,7 @@ public class MyUploadService extends MyBaseTaskService {
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
         final StorageReference photoRef = mStorageRef.child("photos")
+                .child("restaurants")
                 .child(UID)
                 .child("store.jpg");
         // [END get_child_ref]
