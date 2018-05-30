@@ -78,6 +78,11 @@ public class ShareActivity extends AppCompatActivity{
         tabLayout.getTabAt(1).setText(R.string.photo);
     }
 
+    public int getTask(){
+        Log.d(TAG, "getTask: TASK:" + getIntent().getFlags());
+        return getIntent().getFlags();
+    }
+
     /**
      * verify all the permissions passed to the array
      * @param permissions
@@ -137,7 +142,7 @@ public class ShareActivity extends AppCompatActivity{
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext, this , bottomNavigationViewEx);
 
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);

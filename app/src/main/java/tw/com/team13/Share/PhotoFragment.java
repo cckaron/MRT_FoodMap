@@ -1,6 +1,7 @@
 package tw.com.team13.Share;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import tw.com.team13.Profile.AccountSettingsActivity;
 import tw.com.team13.Utils.Permissions;
 import tw.com.team13.firebaselogin.R;
 
@@ -57,6 +59,15 @@ public class PhotoFragment extends Fragment {
         return view;
     }
 
+    private boolean isRootTask(){
+        if (((ShareActivity)getActivity()).getTask() == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -64,7 +75,31 @@ public class PhotoFragment extends Fragment {
         if (requestCode == CAMERA_REQUEST_CODE){
             Log.d(TAG, "onActivityResult: done taking a photo.");
             Log.d(TAG, "onActivityResult: attemping to navigate to final share screen.");
-            //navigate to the final share screen to publish photo
+
+            Bitmap bitmap;
+            bitmap = (Bitmap) data.getExtras().get("data");
+            if (isRootTask()){
+                try{
+                    Log.d(TAG, "onActivityResult: received new bitmap from camera:" + bitmap);
+                    Intent intent = new Intent(getActivity(), NextActivity.class);
+                    intent.putExtra(getString(R.string.selected_bitmap), bitmap);
+                    startActivity(intent);
+                }catch (NullPointerException e){
+                    Log.d(TAG, "onActivityResult: NullPointerException" + e.getMessage());
+                }
+            }else{
+                try{
+                    Log.d(TAG, "onActivityResult: received new bitmap from camera:" + bitmap);
+                    Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                    intent.putExtra(getString(R.string.selected_bitmap), bitmap);
+                    intent.putExtra(getString(R.string.return_to_fragment), getString(R.string.edit_profile_fragment));
+                    startActivity(intent);
+                    getActivity().finish();
+                }catch (NullPointerException e){
+                    Log.d(TAG, "onActivityResult: NullPointerException" + e.getMessage());
+                }
+            }
+
         }
     }
 }

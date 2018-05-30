@@ -1,5 +1,6 @@
 package tw.com.team13.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import tw.com.team13.Share.ShareActivity;
 import tw.com.team13.Utils.UniversalImageLoader;
 import tw.com.team13.firebaselogin.R;
 import tw.com.team13.model.User;
@@ -195,6 +197,17 @@ public class EditProfileFragment extends Fragment{
         mDescription.setText(user.getDescription());
         mEmail.setText(user.getEmail());
         mPhoneNumber.setText(user.getPhone_number());
+
+        mChangeProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: changing profile photo");
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //268435456
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
+        });
 
     }
 

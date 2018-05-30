@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 public class SquareImageView extends AppCompatImageView {
 
     public SquareImageView(Context context) {
-
         super(context);
     }
 
@@ -24,12 +23,6 @@ public class SquareImageView extends AppCompatImageView {
         super(context, attrs, defStyleAttr);
     }
 
-
-    /**
-     * set the (height = width) so that the image will be square-like
-     * @param widthMeasureSpec
-     * @param widthMeasureSpec
-     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);

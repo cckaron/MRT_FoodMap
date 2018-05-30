@@ -1,12 +1,16 @@
 package tw.com.team13.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +36,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import tw.com.team13.Profile.AccountSettingsActivity;
+import tw.com.team13.Profile.ProfileFragment;
+import tw.com.team13.firebaselogin.HomeActivity;
 import tw.com.team13.firebaselogin.R;
 import tw.com.team13.model.Photo;
 import tw.com.team13.model.StringManipulation;
@@ -202,7 +209,7 @@ public class FirebaseMethods {
         return imageCount;
     }
 
-    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl){
+    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl, Bitmap bm){
         Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
 
         FilePaths filePaths = new FilePaths();
@@ -213,27 +220,48 @@ public class FirebaseMethods {
 
             final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            StorageReference storageReference = mStorageReference
+            final StorageReference storageReference = mStorageReference
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
 
             //convert image url to bitmap
-            Bitmap bm = ImageManager.getBitmap(imgUrl);
+            if (bm == null){
+                bm = ImageManager.getBitmap(imgUrl);
+            }
             byte[] bytes = ImageManager.getBytesFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
             uploadTask = storageReference.putBytes(bytes);
 
+            final UploadTask finalUploadTask = uploadTask;
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri firebaseUrl = taskSnapshot.getUploadSessionUri();
+                    Toast.makeText(mContext, "發佈成功!", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
+                    finalUploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()){
+                                throw task.getException();
+                            }
 
-                    //add the new photo to firestore
-                    addPhotoToDatabase(caption, firebaseUrl.toString(), user_id);
+                            return storageReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                Uri downloadUri = task.getResult();
 
+                                //insert into 'Users'
+                                addPhotoToDatabase(caption, downloadUri.toString(), user_id);
+                            }
+                        }
+                    });
 
+                    //navigate to the main feed so far the user can see their photo
+                    Intent intent = new Intent(mContext, tw.com.team13.Home.HomeActivity.class);
+                    mContext.startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -259,8 +287,101 @@ public class FirebaseMethods {
         }
         //case new profile photo
         else if (photoType.equals(mContext.getString(R.string.profile_photo))){
-            Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
+            Log.d(TAG, "uploadNewPhoto: uploading NEW photo.");
+
+            final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            final StorageReference storageReference = mStorageReference
+                    .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo");
+
+            //convert image url to bitmap
+            if (bm == null){
+                bm = ImageManager.getBitmap(imgUrl);
+            }
+            byte[] bytes = ImageManager.getBytesFromBitmap(bm, 100);
+
+            UploadTask uploadTask = null;
+            uploadTask = storageReference.putBytes(bytes);
+
+            final UploadTask finalUploadTask = uploadTask;
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
+
+                    finalUploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()){
+                                throw task.getException();
+                            }
+
+                            return storageReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                Uri downloadUri = task.getResult();
+
+                                //insert into 'Users'
+                                setProfilePhoto(downloadUri.toString(), user_id);
+
+                                ((AccountSettingsActivity)mContext).setViewPager(
+                                        ((AccountSettingsActivity)mContext).pagerAdapter
+                                                .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
+                                );
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: Photo upload failed.");
+                    Toast.makeText(mContext, "Photo upload failed. ", Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+
+                    if (progress - 15 > mPhotoUploadProgress){
+                        Toast.makeText(mContext, "photo upload progress: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
+                        mPhotoUploadProgress = progress;
+                    }
+
+                    Log.d(TAG, "onProgress: upload progress: " + progress + "% done");
+                }
+            });
         }
+
+    }
+
+    private void setProfilePhoto(String url, final String user_id){
+        Log.d(TAG, "setProfilePhoto: setting new profile image:");
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        docRef = mFirebaseFirestore.collection("Users")
+                .document(user_id);
+
+        Map<String, Object> input_user = new HashMap<>();
+        input_user.put("profile_photo", url);
+
+        docRef.set(input_user, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: add data to firestore");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: fail to add data to firestore");
+                    }
+                });
+
 
     }
 

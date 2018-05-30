@@ -33,7 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_black_x" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="D:\Android Studio\Android-Instagram-Clone-master\app\src\main\res\drawable-xxhdpi\ic_heart_outline.png" />
+                                      <entry key="outputName" value="ic_heart_outline" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
