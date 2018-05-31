@@ -90,9 +90,15 @@ public class NextActivity extends AppCompatActivity{
 
                 if(intent.hasExtra(getString(R.string.selected_image))){
                     imgUrl = intent.getStringExtra(getString(R.string.selected_image));
+                    colRef = mFirebaseFirestore.collection("Users").document(userID).collection("Photos");
+                    imageCount = mFirebaseMethods.getImageCount(colRef);
+                    Log.d(TAG, "onClick: pass imageCount value: count = " + imageCount);
                     mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl,null);
                 }
                 else if(intent.hasExtra(getString(R.string.selected_bitmap))){
+                    colRef = mFirebaseFirestore.collection("Users").document(userID).collection("Photos");
+                    imageCount = mFirebaseMethods.getImageCount(colRef);
+                    Log.d(TAG, "onClick: pass imageCount value: count = " + imageCount);
                     bitmap = intent.getParcelableExtra(getString(R.string.selected_bitmap));
                     mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, null,bitmap);
                 }

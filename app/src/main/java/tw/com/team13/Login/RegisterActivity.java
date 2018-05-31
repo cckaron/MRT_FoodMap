@@ -1,6 +1,7 @@
 package tw.com.team13.Login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity{
         init();
     }
 
+
     private void init(){
         btnResgister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity{
                     mProgressBar.setVisibility(View.VISIBLE);
                     mRegistering.setVisibility(View.VISIBLE);
 
-                    firebaseMethods.registerNewEmail(email, password, username);
+                    firebaseMethods.registerNewEmail(email, password, username, mProgressBar, mRegistering);
                 }
             }
         });
@@ -97,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity{
      * Initialize the activity widgets
      */
 
-    private void initWidgets(){
+    public void initWidgets(){
         Log.d(TAG, "initWidgets: Initializing Widgets.");
         mEmail = findViewById(R.id.input_email);
         mProgressBar = findViewById(R.id.progressbar);

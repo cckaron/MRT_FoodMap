@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -36,6 +37,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import tw.com.team13.Login.RegisterActivity;
 import tw.com.team13.Profile.AccountSettingsActivity;
 import tw.com.team13.Profile.ProfileFragment;
 import tw.com.team13.firebaselogin.HomeActivity;
@@ -110,7 +112,7 @@ public class FirebaseMethods {
      * @param username
      */
 
-    public void registerNewEmail (final String email, String password, final String username){
+    public void registerNewEmail (final String email, String password, final String username, final ProgressBar progressBar, final TextView textView){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -122,14 +124,14 @@ public class FirebaseMethods {
                         }
                         else if(task.isSuccessful()){
                             //send verification email
-                            sendVerificationEmail();
+                            sendVerificationEmail(progressBar, textView);
 
                         }
                     }
                 });
     }
 
-    public void sendVerificationEmail(){
+    public void sendVerificationEmail(final ProgressBar progressBar, final TextView textView){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null){
@@ -139,6 +141,8 @@ public class FirebaseMethods {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(mContext, "註冊成功，請至信箱收取認證信", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                textView.setVisibility(View.GONE);
                             }else{
                                 Toast.makeText(mContext, "couldn't send verification email.", Toast.LENGTH_SHORT).show();
                             }
@@ -194,10 +198,12 @@ public class FirebaseMethods {
 
 
     public int getImageCount(CollectionReference mycolRef){
-        imageCount = 0;
+//        imageCount = 0;  // can't setup here, otherwise the pass back value will always be 0;
+
         mycolRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                imageCount = 0;
                 if (task.isSuccessful()){
                     for (DocumentSnapshot document :task.getResult()){
                         imageCount ++;
@@ -209,7 +215,7 @@ public class FirebaseMethods {
         return imageCount;
     }
 
-    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl, Bitmap bm){
+    public void uploadNewPhoto(String photoType, final String caption, final int count, final String imgUrl, Bitmap bm){
         Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
 
         FilePaths filePaths = new FilePaths();
@@ -217,6 +223,7 @@ public class FirebaseMethods {
         //case 1) new photo
         if (photoType.equals(mContext.getString(R.string.new_photo))){
             Log.d(TAG, "uploadNewPhoto: uploading NEW photo.");
+            Log.d(TAG, "uploadNewPhoto: count = " + count);
 
             final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -408,6 +415,7 @@ public class FirebaseMethods {
         input_photo.put("image_path", url);
         input_photo.put("tags", tags);
         input_photo.put("caption", caption);
+        input_photo.put("user_id", user_id);
 
         docRef.set(input_photo, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

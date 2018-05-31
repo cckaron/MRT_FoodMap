@@ -14,6 +14,7 @@ public class Photo implements Parcelable{
     private String date_created;
     private String image_path;
     private String photo_id;
+    private String user_id;
     private String tags;
 
     public Photo(){
@@ -25,6 +26,7 @@ public class Photo implements Parcelable{
         date_created = in.readString();
         image_path = in.readString();
         photo_id = in.readString();
+        user_id = in.readString();
         tags = in.readString();
     }
 
@@ -72,6 +74,14 @@ public class Photo implements Parcelable{
         this.photo_id = photo_id;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
     public String getTags() {
         return tags;
     }
@@ -87,6 +97,7 @@ public class Photo implements Parcelable{
                 ", date_created='" + date_created + '\'' +
                 ", image_path='" + image_path + '\'' +
                 ", photo_id='" + photo_id + '\'' +
+                ", user_id='" + user_id + '\'' +
                 ", tags='" + tags + '\'' +
                 '}';
     }
@@ -102,6 +113,7 @@ public class Photo implements Parcelable{
         dest.writeString(date_created);
         dest.writeString(image_path);
         dest.writeString(photo_id);
+        dest.writeString(user_id);
         dest.writeString(tags);
     }
 }
