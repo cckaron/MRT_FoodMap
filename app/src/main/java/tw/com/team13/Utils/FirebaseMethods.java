@@ -430,6 +430,7 @@ public class FirebaseMethods {
                         Log.d(TAG, "onFailure: fail to add data to firestore");
                     }
                 });
+
     }
 
 }

@@ -208,26 +208,34 @@ public class ViewPostFragment extends Fragment {
                                     }
 
                                     int length = splitUsers.length;
-                                    if (length == 1){
+                                    if (splitUsers[0].equals("")){
+                                        mLikes.setVisibility(View.GONE);
+                                    }
+                                    else if (length == 1){
                                         mLikeString = "按讚的人" + splitUsers[0];
+                                        mLikes.setVisibility(View.VISIBLE);
                                     }
                                     else if (length == 2){
                                         mLikeString = "按讚的人" + splitUsers[0]
                                                 + "和" + splitUsers[1];
+                                        mLikes.setVisibility(View.VISIBLE);
                                     }
                                     else if (length == 3){
                                         mLikeString = "按讚的人" + splitUsers[0]
                                                 + "、" + splitUsers[1] + "和" +splitUsers[2];
+                                        mLikes.setVisibility(View.VISIBLE);
                                     }
                                     else if (length == 4){
                                         mLikeString = "按讚的人" + splitUsers[0]
                                                 + "、" + splitUsers[1] + "、" +splitUsers[2] + "和"
                                                 + splitUsers[3];
+                                        mLikes.setVisibility(View.VISIBLE);
                                     }
                                     else if (length > 4){
                                         mLikeString = "按讚的人" + splitUsers[0]
                                                 + "、" + splitUsers[1] + "、" +splitUsers[2] + "、"
                                                 + splitUsers[3] + "和其他" + (splitUsers.length - 3) + "人";
+                                        mLikes.setVisibility(View.VISIBLE);
                                     }
                                     setupWidgets();
                                 }
@@ -259,7 +267,13 @@ public class ViewPostFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
+                        Log.d(TAG, "onComplete: task is successful");
+                        if (task.getResult().isEmpty()){
+                            Log.d(TAG, "onComplete: it is empty");
+                            addNewLike();
+                        }
                         for (DocumentSnapshot document : task.getResult()){
+                            Log.d(TAG, "onComplete: success to get Like collection");
                             userOnDoubleTapID = document.getString("user_id");
                             mFirebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -297,14 +311,16 @@ public class ViewPostFragment extends Fragment {
                                 break;
                             }
 
-                            if (!document.exists()){
-                                addNewLike();
-                                //add new like
-                            }
                         }
                     }
                 }
-            });
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: fail to get like collection");
+                        }
+                    });
 
             return true;
         }
