@@ -84,6 +84,7 @@ public class ViewPostFragment extends Fragment {
 
     private Photo photo;
     private User myuser;
+    private User photoAuthor;
     private Heart mHeart;
     private Like mLike;
     private Boolean mLikedByCurrentUser;
@@ -116,12 +117,14 @@ public class ViewPostFragment extends Fragment {
             mActivityNumber = getActivityNumFromBundle();
             getPhotoDetails();
             getLikesString();
+            setupWidgets();
         }catch (NullPointerException e){
             Log.e(TAG, "onCreateView: " + e.getMessage());
         }
 
         setupFirebaseAuth();
         setupBottomNavigationView();
+
 
 
         return view;
@@ -200,7 +203,7 @@ public class ViewPostFragment extends Fragment {
                                     String[] splitUsers = mUsers.toString().split(",");
 
                                     if (username != null){
-                                        if (mUsers.toString().contains(username)){
+                                        if (mUsers.toString().contains((username) + ",")){
                                             mLikedByCurrentUser = true;
                                         }else{
                                             mLikedByCurrentUser = false;
@@ -411,14 +414,16 @@ public class ViewPostFragment extends Fragment {
                 .collection("Users")
                 .document(userID);
 
-        Log.d(TAG, "setupWidgets: userID is" + userID);
+        Log.d(TAG, "setupWidgets: userID is " + userID);
 
         documentReference.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()){
+                            Log.d(TAG, "onComplete: success to get user");
                             mProfilePhoto = task.getResult().getString("profile_photo");
+                            Log.d(TAG, "onComplete: mProfilePhoto is " + mProfilePhoto);
                         }
                     }
                 });
@@ -426,8 +431,25 @@ public class ViewPostFragment extends Fragment {
         if (mProfilePhoto != null){
             UniversalImageLoader.setImage(mProfilePhoto, mProfileImage, null, "");
         }
-        mUsername.setText(myuser.getUsername());
+
+        // to get photo Author's username when first time click in this photo
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mFirebaseFirestore.collection("Users")
+                .document(mPhoto.getUser_id())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    photoAuthor = task.getResult().toObject(User.class);
+                    Log.d(TAG, "onComplete: photoAuthor name is " +photoAuthor.getUsername());
+            }
+            }
+        });
+
+
+        mUsername.setText(photoAuthor.getUsername());
         mLikes.setText(mLikeString);
+        mCaption.setText(mPhoto.getCaption());
 
         if (mLikedByCurrentUser){
             mHeartWhite.setVisibility(View.GONE);

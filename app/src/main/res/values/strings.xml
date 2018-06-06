@@ -139,7 +139,7 @@
     <!-- photo types -->
     <string name="new_photo">new_photo</string>
     <string name="profile_photo">profile_photo</string>
-
+    <string name="user_id">user_id</string>
 
 
     <string-array name="cities">
