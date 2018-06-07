@@ -2,6 +2,7 @@ package tw.com.team13.Home;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.WriteBatch;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.List;
 
@@ -43,6 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.com.team13.Adapter.RestaurantAdapter;
 import tw.com.team13.Login.LoginActivity;
+import tw.com.team13.Utils.BottomNavigationViewHelper;
 import tw.com.team13.firebaselogin.FilterDialogFragment;
 import tw.com.team13.firebaselogin.Filters;
 import tw.com.team13.firebaselogin.HomeActivity;
@@ -64,8 +67,6 @@ import static android.app.Activity.RESULT_OK;
 public class MessagesFragment extends Fragment implements
         FilterDialogFragment.FilterListener,
         RestaurantAdapter.OnRestaurantSelectedListener{
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
 
     @BindView(R.id.text_current_search)
     TextView mCurrentSearchView;
@@ -94,11 +95,15 @@ public class MessagesFragment extends Fragment implements
     public Activity owner;
     public FragmentActivity owner2;
 
+    private BottomNavigationViewEx bottomNavigationView;
+    private Context mContext;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.activity_main2, container, false);
+        final View view = inflater.inflate(R.layout.fragment_search, container, false);
         
 
         ButterKnife.bind(this,view);
@@ -145,6 +150,7 @@ public class MessagesFragment extends Fragment implements
 
         // Filter Dialog
         mFilterDialog = new FilterDialogFragment();
+
 
         return view;
     }
@@ -349,4 +355,6 @@ public class MessagesFragment extends Fragment implements
             }
         });
     }
+
+
 }
