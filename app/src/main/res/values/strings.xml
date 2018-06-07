@@ -115,7 +115,7 @@
     <!-- fragment names -->
     <string name="profile_fragment">profile</string>
     <string name="edit_profile_fragment">編輯個人資訊</string>
-    <string name="sign_out_fragment">sign_out</string>
+    <string name="sign_out_fragment">登出</string>
     <string name="view_post_fragment">view_post</string>
 
     <!-- Intent Extras -->
@@ -140,6 +140,7 @@
     <string name="new_photo">new_photo</string>
     <string name="profile_photo">profile_photo</string>
     <string name="user_id">user_id</string>
+    <string name="Upload_fragment">上傳店家資訊</string>
 
 
     <string-array name="cities">

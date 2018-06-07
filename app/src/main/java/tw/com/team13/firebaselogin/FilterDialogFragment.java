@@ -28,7 +28,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
 
-    interface FilterListener {
+    public interface FilterListener {
 
         void onFilter(Filters filters);
 
