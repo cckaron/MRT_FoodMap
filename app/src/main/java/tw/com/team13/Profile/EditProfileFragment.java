@@ -149,6 +149,8 @@ public class EditProfileFragment extends Fragment{
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
+                            Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

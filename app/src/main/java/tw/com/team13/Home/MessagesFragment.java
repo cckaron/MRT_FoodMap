@@ -121,6 +121,8 @@ public class MessagesFragment extends Fragment implements
         mQuery = mFirestore.collection("restaurants")
                 .orderBy("avgRating", Query.Direction.DESCENDING)
                 .limit(LIMIT);
+        
+        
 
         // RecyclerView
         mAdapter = new RestaurantAdapter(mQuery, this) {
@@ -166,6 +168,7 @@ public class MessagesFragment extends Fragment implements
         }
 
         // Apply filters
+        Log.d(TAG, "onStart: apply filters");
         onFilter(mViewModel.getFilters());
 
         // Start listening for Firestore updates
@@ -229,6 +232,7 @@ public class MessagesFragment extends Fragment implements
     public void onfilterClicked() {
         // Show the dialog containing filter options
         mFilterDialog.show(getActivity().getSupportFragmentManager(), FilterDialogFragment.TAG);
+        Log.d(TAG, "onfilterClicked: fileterbar clicked");
     }
 
     @OnClick(R.id.button_clear_filter)
@@ -254,6 +258,7 @@ public class MessagesFragment extends Fragment implements
     public void onFilter(Filters filters) {
         // Construct query basic query
         Query query = mFirestore.collection("restaurants");
+        Log.d(TAG, "onFilter: query is " + query);
 
         // Category (equality filter)
         if (filters.hasCategory()) {

@@ -54,9 +54,6 @@ public class SearchActivity extends AppCompatActivity implements
         FilterDialogFragment.FilterListener,
         RestaurantAdapter.OnRestaurantSelectedListener{
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
     @BindView(R.id.text_current_search)
     TextView mCurrentSearchView;
 
@@ -86,9 +83,9 @@ public class SearchActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.fragment_search);
         ButterKnife.bind(this);
-        getSupportActionBar().hide(); // 把原本的toolbar隱藏起來
+//        getSupportActionBar().hide(); // 把原本的toolbar隱藏起來
 
 
         // View model
@@ -208,6 +205,7 @@ public class SearchActivity extends AppCompatActivity implements
     public void onfilterClicked() {
         // Show the dialog containing filter options
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
+        Log.d(TAG, "onfilterClicked: filter is clicked");
     }
 
     @OnClick(R.id.button_clear_filter)

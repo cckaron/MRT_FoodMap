@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class FilterDialogFragment extends DialogFragment {
     public void onSearchClicked() {
         if (mFilterListener != null) {
             mFilterListener.onFilter(getFilters());
+            Log.d(TAG, "onSearchClicked:");
         }
 
         dismiss();
@@ -164,6 +166,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     public Filters getFilters() {
         Filters filters = new Filters();
+        Log.d(TAG, "getFilters:");
 
         if (mRootView != null) {
             filters.setCategory(getSelectedCategory());
